@@ -6,5 +6,18 @@
     "module": "commonjs",
     "target": "es6",
     "jsx": "react"
-  }
+  },
+  "include": [
+    "src/**/*",
+    "types/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "script",
+    "webpack",
+    "**/*.spec.ts",
+    "*.js"
+  ]
 }
