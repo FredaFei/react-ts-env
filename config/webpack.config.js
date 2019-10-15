@@ -1,14 +1,16 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const {resolve} = require('./utils')
+const utils = require('./utils');
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  entry: path.join(__dirname, '../src/index.tsx'),
+  context: path.resolve(__dirname,'../'),
+  entry: './src/index.tsx',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      styles: path.resolve(__dirname, '../src/styles')
+      styles: resolve( '../src/styles')
     }
   },
   module: {
@@ -24,7 +26,7 @@ module.exports = {
           {
             loader: 'less-loader',
             options: {
-              includePaths: [path.join(__dirname, '../src/styles')]
+              includePaths: [resolve('../src/styles')]
             }
           }
         ]
@@ -37,7 +39,7 @@ module.exports = {
             options: {
               //1024 == 5kb
               limit: 10240,
-              name: '[path][name].[ext]'
+              name: utils.assetsPath('images/[name].[hash:7].[ext]')
             }
           }]
       },
@@ -45,7 +47,7 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[hash].[ext]',
+          name: utils.assetsPath('images/[name].[hash:7].[ext]'),
         },
       },
     ]
