@@ -1,16 +1,17 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const {resolve} = require('./utils')
 const utils = require('./utils');
+const plugins = require('./plugins');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  context: path.resolve(__dirname,'../'),
+  context: path.resolve(__dirname, '../'),
   entry: './src/index.tsx',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      styles: resolve( '../src/styles')
+      styles: utils.resolve('../src/styles')
     }
   },
   module: {
@@ -22,11 +23,18 @@ module.exports = {
       {
         test: /\.less$/,
         exclude: /node_modules/,
-        use: [ 'style-loader','css-loader',
+        use: [
+          devMode
+            ? 'style-loader'
+            : {
+              loader: MiniCssExtractPlugin.loader,
+              options: {}
+            },
+          'css-loader',
           {
             loader: 'less-loader',
             options: {
-              includePaths: [resolve('../src/styles')]
+              includePaths: [utils.resolve('../src/styles')]
             }
           }
         ]
@@ -42,20 +50,14 @@ module.exports = {
               name: utils.assetsPath('images/[name].[hash:7].[ext]')
             }
           }]
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: utils.assetsPath('images/[name].[hash:7].[ext]'),
-        },
-      },
+      }
     ]
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
-    })
-  ]
+  plugins: [...plugins],
+  resolveLoader: {
+    modules: [
+      'node_modules',
+      path.resolve(__dirname, 'loaders')
+    ]
+  }
 };

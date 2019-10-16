@@ -1,8 +1,5 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { resolve,assetsPath } = require('./utils');
+// const path = require('path');
+const { assetsPath } = require('./utils');
 const { build } = require('./config');
 const base = require('./webpack.config');
 
@@ -11,17 +8,20 @@ module.exports = Object.assign({}, base, {
   output: {
     path: build.assetsRoot,
     filename: assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: assetsPath('js/[id].[chunkhash].js')
+    chunkFilename: assetsPath('js/[id].[chunkhash].js'),
+    publicPath: build.assetsPublicPath
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: resolve('../index.html')
-    }),
-    new MiniCssExtractPlugin({
-      filename: assetsPath(`${build.assetsSubDirectory}/css/[name].[contenthash].css`),
-      chunkFilename: assetsPath(`${build.assetsSubDirectory}/css/[name].[contenthash].css`)
-    })
-  ]
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: 'initial',
+          name: 'vendor',
+          test: 'vendor',
+          enforce: true
+        },
+      }
+    },
+    runtimeChunk: true
+  }
 });
