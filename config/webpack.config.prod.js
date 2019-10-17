@@ -12,12 +12,12 @@ module.exports = Object.assign({}, base, {
     chunkFilename: assetsPath('js/[id].[chunkhash].js'),
     publicPath: build.assetsPublicPath
   },
-  optimization: {
-    minimize: prodMode,
-    splitChunks: {
-      chunks: 'all',
-      name: false,
-    },
-    runtimeChunk: true
-  }
+  // optimization: {
+  //   minimize: prodMode,
+  //   splitChunks: {
+  //     chunks: 'all',
+  //     name: false,
+  //   },
+  //   runtimeChunk: true
+  // }
 });

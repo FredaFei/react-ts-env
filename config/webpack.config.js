@@ -1,5 +1,5 @@
 const path = require('path');
-const {dev,build} = require('./config');
+const { dev, build } = require('./config');
 const utils = require('./utils');
 const plugins = require('./plugins');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');

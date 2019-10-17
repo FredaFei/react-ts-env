@@ -12,6 +12,8 @@ const path = require('path');
 const basePlugins = [
   new HtmlWebpackPlugin({
     filename: 'index.html',
+    // favicon: './favicon.ico',
+    title: 'la',
     template: resolve('../index.html')
   })
 ];
