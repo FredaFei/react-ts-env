@@ -1,4 +1,5 @@
 import * as React from "react";
+import './test.less'
 
 export interface HelloProps { compiler: string; framework: string; }
 

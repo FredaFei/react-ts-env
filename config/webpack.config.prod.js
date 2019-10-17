@@ -1,7 +1,8 @@
-// const path = require('path');
+const path = require('path');
 const { assetsPath } = require('./utils');
 const { build } = require('./config');
 const base = require('./webpack.config');
+const prodMode = process.env.NODE_ENV === 'production';
 
 module.exports = Object.assign({}, base, {
   mode: 'production',
@@ -12,15 +13,10 @@ module.exports = Object.assign({}, base, {
     publicPath: build.assetsPublicPath
   },
   optimization: {
+    minimize: prodMode,
     splitChunks: {
-      cacheGroups: {
-        vendor: {
-          chunks: 'initial',
-          name: 'vendor',
-          test: 'vendor',
-          enforce: true
-        },
-      }
+      chunks: 'all',
+      name: false,
     },
     runtimeChunk: true
   }

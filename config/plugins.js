@@ -8,7 +8,6 @@ const { resolve, assetsPath } = require('./utils');
 const { build } = require('./config');
 const path = require('path');
 
-const DLL_PATH = '../dist/dll';
 
 const basePlugins = [
   new HtmlWebpackPlugin({
@@ -23,18 +22,25 @@ const devPlugins = [
   })
 ];
 const prodPlugins = [
-  // new CleanWebpackPlugin(),
+  new CleanWebpackPlugin({
+    verbose: true,
+    cleanOnceBeforeBuildPatterns:[
+      '!react.dll.js',
+      '!react-manifest.json'
+    ]
+  }),
   new webpack.DllReferencePlugin({
+    context: path.join(__dirname),
     manifest: require('../dist/dll/react.manifest.json')
   }),
   new AddAssetHtmlPlugin({
-    filepath: path.resolve(__dirname, `${DLL_PATH}/**/*.js`),
+    filepath: path.resolve(__dirname, '../dist/dll/*.dll.js'),
     includeSourcemap: false
   }),
-  new BundleAnalyzerPlugin(),
+  // new BundleAnalyzerPlugin(),
   new MiniCssExtractPlugin({
-    filename: assetsPath(`${build.assetsSubDirectory}/css/[name].[contenthash].css`),
-    chunkFilename: assetsPath(`${build.assetsSubDirectory}/css/[id].[contenthash].css`)
+    filename: assetsPath('css/[name].[contenthash].css'),
+    chunkFilename: assetsPath('css/[id].[contenthash].css'),
   })
 ];
 

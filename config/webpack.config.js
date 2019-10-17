@@ -1,9 +1,12 @@
 const path = require('path');
+const {dev,build} = require('./config');
 const utils = require('./utils');
 const plugins = require('./plugins');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
+
+const publicPath = devMode ? dev.assetsPublicPath : build.assetsPublicPath;
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -28,7 +31,7 @@ module.exports = {
             ? 'style-loader'
             : {
               loader: MiniCssExtractPlugin.loader,
-              options: {}
+              options: publicPath === './' ? { publicPath: '../../' } : {}
             },
           'css-loader',
           {
