@@ -6,7 +6,6 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const webpack = require('webpack');
 const { resolve, assetsPath } = require('./utils');
-const { build } = require('./config');
 const path = require('path');
 
 
@@ -20,28 +19,22 @@ const basePlugins = [
   })
 ];
 const devPlugins = [
+  new webpack.DllReferencePlugin({
+    context: path.join(__dirname),
+    manifest: require('../dll/react.manifest.json')
+  }),
+  new AddAssetHtmlPlugin({
+    filepath: path.resolve(__dirname, '../dll/*.dll.js'),
+    includeSourcemap: false
+  }),
   new MiniCssExtractPlugin({
     filename: '[name].css',
     chunkFilename: '[id].css'
-  }),
-];
+  })
+]
 const prodPlugins = [
-  new CleanWebpackPlugin({
-    verbose: true,
-    cleanOnceBeforeBuildPatterns:[
-      '!react.dll.js',
-      '!react-manifest.json'
-    ]
-  }),
-  // new webpack.DllReferencePlugin({
-  //   context: path.join(__dirname),
-  //   manifest: require('../dll/react.manifest.json')
-  // }),
-  // new AddAssetHtmlPlugin({
-  //   filepath: path.resolve(__dirname, '../dist/dll/*.dll.js'),
-  //   includeSourcemap: false
-  // }),
-  // new BundleAnalyzerPlugin(),
+  new CleanWebpackPlugin(),
+  new BundleAnalyzerPlugin(),
   new MiniCssExtractPlugin({
     filename: assetsPath('css/[name].[contenthash].css'),
     chunkFilename: assetsPath('css/[id].[contenthash].css'),

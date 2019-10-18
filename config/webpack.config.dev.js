@@ -1,3 +1,4 @@
+const path = require('path')
 const base = require('./webpack.config');
 
 module.exports = Object.assign({}, base, {
@@ -14,4 +15,4 @@ module.exports = Object.assign({}, base, {
     hot: true,
     proxy: {}
   }
-});
+})

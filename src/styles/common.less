@@ -1,14 +1,20 @@
-@import "reset";
+  @import 'reset';
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  font-family: Helvetica, STHeiti STXihei, Microsoft YaHei, Tohoma, Arial
+  font-family: Helvetica, STHeiti STXihei, Microsoft YaHei, Tohoma, Arial;
 }
-#root {
-  .main{width: 800px;margin: 20px auto;border:1px solid #ddd;}
-  h1 {
-    font-size: 24px;color: white;
+.m {
+  &-main {
+    width: 800px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+  }
+  &-title {
+    line-height: 38px;
+    padding: 0 8px;
+    font-size: 24px;
+    color: white;
     background: #ddd url(../images/1.png) no-repeat;
   }
-
 }
