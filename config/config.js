@@ -16,6 +16,6 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/react-ts-env/',
+    assetsPublicPath: './',
   }
 }

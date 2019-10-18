@@ -46,21 +46,25 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: 'file-loader',
             options: {
-              //1024 == 5kb
-              limit: 10240,
               name: utils.assetsPath('images/[name].[hash:7].[ext]')
             }
           }]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: utils.assetsPath('fonts/[name].[ext]?[hash:7]'),
+          }
+        }],
       }
     ]
   },
   plugins: [...plugins],
   resolveLoader: {
-    modules: [
-      'node_modules',
-      path.resolve(__dirname, 'loaders')
-    ]
+    modules: ['node_modules']
   }
 };
