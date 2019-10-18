@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -11,6 +12,7 @@ module.exports = {
     library: '_dll_[name]'
   },
   plugins: [
+    new CleanWebpackPlugin(),
     //生成动态链接库的对应关系
     new webpack.DllPlugin({
       name: '_dll_[name]',

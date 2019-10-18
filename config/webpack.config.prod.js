@@ -28,12 +28,6 @@ module.exports = Object.assign({}, base, {
           name: 'commons',
           minChunks: 2,
           ...commonOptions
-        },
-        dll: {
-          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-          name: 'dll',
-          priority: 1,
-          ...commonOptions
         }
       }
     }
