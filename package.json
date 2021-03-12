@@ -28,7 +28,7 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.8.0",
-    "react-dev-utils": "^9.1.0",
+    "react-dev-utils": "^11.0.4",
     "style-loader": "^1.0.0",
     "typescript": "^3.6.4",
     "url-loader": "^2.2.0",
